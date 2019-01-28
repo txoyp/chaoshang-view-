@@ -6,7 +6,6 @@ import FPassword from './views/FPassword.vue';
 import MessageLogin from './views/MessageLogin.vue';
 
 Vue.use(Router);
-
 let router = new Router({
     mode: 'history',//hash
     base: process.env.BASE_URL,
