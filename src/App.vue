@@ -1,13 +1,10 @@
 <template>
   <div id="app">
+    <router-view/>
     <div id="nav">
       <router-link to="/">登录</router-link> |
-      <router-link to="/weChatLogin">微信登录</router-link> |
-      <router-link to="/register">注册</router-link> |
-      <router-link to="/fPassword">忘记密码</router-link> |
-      <router-link to="/messageLogin">短信登录</router-link>
+      <router-link to="/register">注册</router-link>
     </div>
-      <router-view/>
   </div>
 </template>
 

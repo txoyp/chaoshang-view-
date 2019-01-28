@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
-import WeChatLogin from './views/WeChatLogin.vue';
 import FPassword from './views/FPassword.vue';
 import MessageLogin from './views/MessageLogin.vue';
 
@@ -16,11 +15,6 @@ let router = new Router({
             path: '/',
             name: 'login',
             component: Login,
-        },
-        {
-            path: '/weChatLogin',
-            name: 'weChatLogin',
-            component:WeChatLogin ,
         },
         {
             path: '/register',
