@@ -146,7 +146,6 @@
             padding: 35px 35px 15px;
             background: #fff;
             border: 1px solid #eaeaea;
-            // box-shadow: 0 0 15px #cac6c6;
             .title{
                 margin-bottom: 30px;
             }

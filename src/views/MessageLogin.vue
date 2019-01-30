@@ -36,7 +36,7 @@
                 <el-input type="text" auto-complete="off" placeholder="验证码" style="width:60%;"></el-input>
                 <el-button style="width:40%">验证码</el-button>
             </el-form-item>
-            <!-- <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox> -->
+            <!-- <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox> --->
             <br/>
             <el-form-item style="width:100%;">
                 <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="resgistering">登录</el-button>

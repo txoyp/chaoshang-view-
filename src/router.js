@@ -8,7 +8,6 @@ import Upload from './upload/Upload.vue'
 import SignUp from './views/SignUp.vue'
 
 Vue.use(Router);
-
 let router = new Router({
     mode: 'history',//hash
     base: process.env.BASE_URL,
