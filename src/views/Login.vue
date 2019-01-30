@@ -22,7 +22,8 @@
                 class="demo-ruleForm login-page"
         >
             <h3 class="title">用户登录</h3>
-            <el-form-item prop="username">
+            <Upload></Upload>
+            <el-form-item style="margin-top: 10px" prop="username">
                 <el-input type="text" auto-complete="off" placeholder="用户名/用户手机号"></el-input>
             </el-form-item>
             <el-form-item prop="password">
@@ -54,7 +55,14 @@
 </template>
 
 <script>
+
+    import Upload from '../upload/Upload'
+
     export default {
+        name:'upload',
+        components:{
+          Upload
+        },
         data() {
             return {
                 resgistering: false,
@@ -140,7 +148,7 @@
             text-decoration: none;
         }
         .title{
-            margin-bottom: 10px;
+            margin-top: -10px;
         }
     }
     label.el-checkbox.rememberme {

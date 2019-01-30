@@ -29,6 +29,7 @@
                 label-width="80px"
                 class="demo-ruleForm resgister-page"
         >
+            <Upload></Upload>
             <h3 class="title">账户设置</h3>
             <el-form-item prop="username" label="用户名">
                 <el-input type="text" auto-complete="off" placeholder="用户名"></el-input>
@@ -61,7 +62,13 @@
 </template>
 
 <script>
+
+    import Upload from '../upload/Upload'
+
     export default {
+        components:{
+            Upload
+        },
         data() {
             return {
                 resgistering: false,

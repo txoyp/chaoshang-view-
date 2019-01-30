@@ -1,9 +1,11 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Login from './views/Login.vue';
-import Register from './views/Register.vue';
-import FPassword from './views/FPassword.vue';
-import MessageLogin from './views/MessageLogin.vue';
+import Vue from 'vue'
+import Router from 'vue-router'
+import Login from './views/Login.vue'
+import Register from './views/Register.vue'
+import FPassword from './views/FPassword.vue'
+import MessageLogin from './views/MessageLogin.vue'
+import Upload from './upload/Upload.vue'
+import SignUp from './views/SignUp.vue'
 
 Vue.use(Router);
 
@@ -28,6 +30,14 @@ let router = new Router({
         {
             path:'/messageLogin',
             component:MessageLogin
+        },
+        {
+            path:'/upload',
+            component:Upload
+        },
+        {
+            path:'/signUp',
+            component:SignUp
         }
     ],
 });

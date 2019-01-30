@@ -3,7 +3,8 @@
     <router-view/>
     <div id="nav">
       <router-link to="/">登录</router-link> |
-      <router-link to="/register">注册</router-link>
+      <router-link to="/register">注册</router-link> |
+      <router-link to="/signUp">报名</router-link>
     </div>
   </div>
 </template>
