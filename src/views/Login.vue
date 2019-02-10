@@ -24,10 +24,10 @@
             <h3 class="title">用户登录</h3>
             <Upload></Upload>
             <el-form-item style="margin-top: 10px" prop="username">
-                <el-input type="text" auto-complete="off" placeholder="用户名/用户手机号"></el-input>
+                <el-input type="text" auto-complete="off" placeholder="用户名/用户手机号" v-model="ruleForm2.username"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="password" auto-complete="off" placeholder="密码"></el-input>
+                <el-input type="password" auto-complete="off" placeholder="密码" v-model="ruleForm2.password"></el-input>
             </el-form-item>
 
             <div class="float">
@@ -38,12 +38,13 @@
                 </div>
             </div>
             <el-form-item style="width:100%;">
-                <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">登录</el-button>
+                <router-link to="/"></router-link>
+                <el-button type="primary" style="width:100%;" @click="handleSubmit">登录</el-button>
             </el-form-item>
             <el-form-item style="width:100%;">
-                <el-button type="success" style="float: left; width:35%;" @click="handleSubmit" :loading="logining">微信登录</el-button>
+                <el-button type="success" style="float: left; width:35%;" @click="handleSubmit">微信登录</el-button>
                 <router-link to="/messageLogin">
-                    <el-button type="success" style="float: right;width:35%;" @click="" :loading="logining">短信登录</el-button>
+                    <el-button type="success" style="float: right;width:35%;" @click="">短信登录</el-button>
                 </router-link>
             </el-form-item>
             <div class="register">
@@ -67,8 +68,8 @@
             return {
                 resgistering: false,
                 ruleForm2: {
-                    username: "admin",
-                    password: "123456"
+                    username: "",
+                    password: ""
                 },
                 rules2: {
                     username: [
@@ -82,7 +83,8 @@
                         { required: true, message: "enter your password", trigger: "blur" }
                     ]
                 },
-                checked: false
+                checked: false,
+                logining:'',
             };
         },
         methods: {
@@ -106,6 +108,15 @@
                     } else {
                         console.log("error submit!");
                         return false;
+                    }
+                    if (
+                        this.ruleForm2.username === "" ||
+                        this.ruleForm2.password === ""
+                    ) {
+                        this.resgistering = false;
+                        this.$alert("username or password is Null!", "info", {
+                            confirmButtonText: "ok"
+                        });
                     }
                 });
             }

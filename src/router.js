@@ -6,6 +6,7 @@ import FPassword from './views/FPassword.vue'
 import MessageLogin from './views/MessageLogin.vue'
 import Upload from './upload/Upload.vue'
 import SignUp from './views/SignUp.vue'
+import NavList from './views/shop/NavList.vue'
 
 Vue.use(Router);
 let router = new Router({
@@ -37,6 +38,10 @@ let router = new Router({
         {
             path:'/signUp',
             component:SignUp
+        },
+        {
+            path:'/navList',
+            component:NavList
         }
     ],
 });

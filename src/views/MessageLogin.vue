@@ -30,13 +30,12 @@
         >
             <h3 class="title">短信登录</h3>
             <el-form-item prop="username" label="手机号">
-                <el-input type="text" auto-complete="off" placeholder="请输入您的手机号"></el-input>
+                <el-input type="text" auto-complete="off" placeholder="请输入您的手机号" v-model="ruleForm2.phoneNum"></el-input>
             </el-form-item>
             <el-form-item prop="username" label="验证码">
-                <el-input type="text" auto-complete="off" placeholder="验证码" style="width:60%;"></el-input>
+                <el-input type="text" auto-complete="off" placeholder="验证码" style="width:60%;" v-model="ruleForm2.code"></el-input>
                 <el-button style="width:40%">验证码</el-button>
             </el-form-item>
-            <!-- <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox> --->
             <br/>
             <el-form-item style="width:100%;">
                 <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="resgistering">登录</el-button>
@@ -53,18 +52,18 @@
             return {
                 resgistering: false,
                 ruleForm2: {
-                    username: "admin",
-                    password: "123456"
+                    phoneNum: "",
+                    code: ""
                 },
                 rules2: {
-                    username: [
+                    phoneNum: [
                         {
                             required: true,
                             message: "please enter your account",
                             trigger: "blur"
                         }
                     ],
-                    password: [
+                    code: [
                         { required: true, message: "enter your password", trigger: "blur" }
                     ]
                 },
@@ -77,11 +76,11 @@
                     if (valid) {
                         this.resgistering = true;
                         if (
-                            this.ruleForm2.username === "admin" &&
-                            this.ruleForm2.password === "123456"
+                            this.ruleForm2.phoneNum === "123456" &&
+                            this.ruleForm2.code === "1234"
                         ) {
                             this.resgistering = false;
-                            sessionStorage.setItem("user", this.ruleForm2.username);
+                            sessionStorage.setItem("user", this.ruleForm2.phoneNum);
                             this.$router.push({ path: "/" });
                         } else {
                             this.resgistering = false;
@@ -92,6 +91,15 @@
                     } else {
                         console.log("error submit!");
                         return false;
+                    }
+                    if (
+                            this.ruleForm2.phoneNum === "" ||
+                            this.ruleForm2.code === ""
+                    ) {
+                        this.resgistering = false;
+                        this.$alert("phoneNum or code is Null!", "info", {
+                            confirmButtonText: "ok"
+                        });
                     }
                 });
             }
