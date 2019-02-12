@@ -7,6 +7,10 @@ import MessageLogin from './views/MessageLogin.vue'
 import Upload from './upload/Upload.vue'
 import SignUp from './views/SignUp.vue'
 import NavList from './views/shop/NavList.vue'
+import Detail from './views/shop/Detail.vue'
+import ShopCar from './views/shop/ShopCar.vue'
+import MemberSelect from './views/shop/MemberSelect.vue'
+import LogisticInform from './views/shop/LogisticInform.vue'
 
 Vue.use(Router);
 let router = new Router({
@@ -42,7 +46,23 @@ let router = new Router({
         {
             path:'/navList',
             component:NavList
-        }
+        },
+        {
+            path:'/detail',
+            component:Detail
+        },
+        {
+            path:'/shopCar',
+            component:ShopCar
+        },
+        {
+            path:'/memberSelect',
+            component:MemberSelect
+        },
+        {
+            path:'/logisticInform',
+            component:LogisticInform
+        },
     ],
 });
 

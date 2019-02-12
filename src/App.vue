@@ -5,7 +5,9 @@
       <router-link to="/">登录</router-link> |
       <router-link to="/register">注册</router-link> |
       <router-link to="/signUp">报名</router-link> |
-      <router-link to="/navList">商城</router-link>
+      <router-link to="/navList">商城</router-link> |
+      <router-link to="/logisticInform">物流信息录入</router-link> |
+      <router-link to="/memberSelect">会员查询物流信息</router-link>
     </div>
   </div>
 </template>

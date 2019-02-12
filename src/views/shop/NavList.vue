@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="rightContainer">
-
+                <router-link to="/detail">商品详情</router-link>
             </div>
             <!--热门商品-->
 
@@ -75,7 +75,7 @@
         <div class="hot">
             <p class="hot-title">热门商品</p>
             <swiper class="hot-swiper" :options="swiperOption">
-                <swiper-slide v-for="(item,index) in hotProducts" :key="index">
+                <swiper-slide class="hot-swiper-item" v-for="(item,index) in hotProducts" :key="index">
                     <div class="hot-swiper-content">
                         <img :src="item.img">
                         <div>{{item.name}}</div>
@@ -273,7 +273,6 @@
     .el-carousel__item:nth-child(2n+1) {
         background-color: #d3dce6;
     }
-
     .hot{
         p{
             padding: 1rem;
@@ -283,17 +282,17 @@
         width: 86%;
         background-color: #fff;
         &-title{
-            width: 20%;
+            width: 10%;
             text-align: left;
             box-sizing: border-box;
         }
         &-swiper{
             margin-left: 1rem;
             &-content{
-                width: 10rem;
+                width: 25rem;
                 text-align: center;
                 img{
-                    width: 18rem;
+                    width: 25rem;
                     height: 18rem;
                 }
             }
