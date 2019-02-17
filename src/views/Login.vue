@@ -23,11 +23,11 @@
         >
             <h3 class="title">用户登录</h3>
             <Upload></Upload>
-            <el-form-item style="margin-top: 10px" prop="username">
-                <el-input type="text" auto-complete="off" placeholder="用户名/用户手机号" v-model="ruleForm2.username"></el-input>
+            <el-form-item style="margin-top: 10px" prop="loginUsername">
+                <el-input type="text" clearable auto-complete="off" placeholder="用户名/用户手机号" v-model="ruleForm2.loginUsername"></el-input>
             </el-form-item>
-            <el-form-item prop="password">
-                <el-input type="password" auto-complete="off" placeholder="密码" v-model="ruleForm2.password"></el-input>
+            <el-form-item prop="loginPassword">
+                <el-input type="password" clearable auto-complete="off" placeholder="密码" v-model="ruleForm2.loginPassword"></el-input>
             </el-form-item>
 
             <div class="float">
@@ -39,7 +39,7 @@
             </div>
             <el-form-item style="width:100%;">
                 <router-link to="/"></router-link>
-                <el-button type="primary" style="width:100%;" @click="handleSubmit">登录</el-button>
+                <el-button type="primary" style="width:100%;" @click="handleSubmit();loginHandler()">登录</el-button>
             </el-form-item>
             <el-form-item style="width:100%;">
                 <el-button type="success" style="float: left; width:35%;" @click="handleSubmit">微信登录</el-button>
@@ -58,6 +58,9 @@
 <script>
 
     import Upload from '../upload/Upload'
+    import axios from 'axios'
+    import { mapActions } from 'vuex'
+    import url from '@/service.config.js'
 
     export default {
         name:'upload',
@@ -68,18 +71,18 @@
             return {
                 resgistering: false,
                 ruleForm2: {
-                    username: "",
-                    password: ""
+                    loginUsername:'',
+                    loginPassword:''
                 },
                 rules2: {
-                    username: [
+                    loginUsername: [
                         {
                             required: true,
                             message: "please enter your account",
                             trigger: "blur"
                         }
                     ],
-                    password: [
+                    loginPassword: [
                         { required: true, message: "enter your password", trigger: "blur" }
                     ]
                 },
@@ -88,16 +91,17 @@
             };
         },
         methods: {
+
             handleSubmit(event) {
                 this.$refs.ruleForm2.validate(valid => {
                     if (valid) {
                         this.resgistering = true;
                         if (
-                            this.ruleForm2.username === "admin" &&
-                            this.ruleForm2.password === "123456"
+                            this.ruleForm2.loginUsername === "admin" &&
+                            this.ruleForm2.loginPassword === "123456"
                         ) {
                             this.resgistering = false;
-                            sessionStorage.setItem("user", this.ruleForm2.username);
+                            sessionStorage.setItem("user", this.ruleForm2.loginUsername);
                             this.$router.push({ path: "/" });
                         } else {
                             this.resgistering = false;
@@ -110,8 +114,8 @@
                         return false;
                     }
                     if (
-                        this.ruleForm2.username === "" ||
-                        this.ruleForm2.password === ""
+                        this.ruleForm2.loginUsername === "" ||
+                        this.ruleForm2.loginPassword === ""
                     ) {
                         this.resgistering = false;
                         this.$alert("username or password is Null!", "info", {
@@ -119,12 +123,53 @@
                         });
                     }
                 });
+            },
+
+            //登录的处理方法
+            loginHandler(){
+                    axios({
+                        url:url.loginUser,
+                        method:'post',
+                        data:{
+                            userName:this.ruleForm2.loginUsername,
+                            password:this.ruleForm2.loginPassword
+                        }
+                    }).then(res => {
+                        //判断状态码(自定义)
+                        if(res.data.code === 200 ){
+                            // 模拟网络环境延迟   对异步操作的管理
+                            new Promise((resolve,reject)=>{
+                                setTimeout(()=>{
+                                    resolve();
+                                    // resolve(参数);
+                                },1000);
+                            }).then(()=>{     //。then((参数)=>{})
+                                this.$message.success('登录成功！');
+                                //保存登录状态     *****
+                                this.loginAction(res.data.userInfo);          //后台要为前端提供userInfo的一个对象
+
+                                this.$router.go(-1);           //跳转页面
+                            }).catch(err=>{
+                                this.$message.error('保存登录状态失败！');
+                                console.log(err);
+                            });
+
+                        }
+                        console.log(res);
+                    }).catch(err => {
+                        console.log(err);
+                        this.$message.error('登录失败！');
+                    });
+                //待删
+                this.$router.push('/');
             }
+        },
+        computed:{
+            ...mapActions(['loginAction'])
         }
     };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only --->
 <style scoped lang="scss">
     .login-page {
         -webkit-border-radius: 5px;

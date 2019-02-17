@@ -31,14 +31,14 @@
         >
             <Upload></Upload>
             <h3 class="title">账户设置</h3>
-            <el-form-item prop="username" label="用户名">
-                <el-input type="text" auto-complete="off" placeholder="用户名"></el-input>
+            <el-form-item prop="regUsername" label="用户名">
+                <el-input type="text" auto-complete="off" placeholder="用户名" v-model="ruleForm2.regUsername"></el-input>
             </el-form-item>
-            <el-form-item prop="password" label="密码">
-                <el-input type="password"  auto-complete="off" placeholder="密码"></el-input>
+            <el-form-item prop="regPassword" label="密码">
+                <el-input type="password"  auto-complete="off" placeholder="密码" v-model="ruleForm2.regPassword"></el-input>
             </el-form-item>
-            <el-form-item prop="password" label="确认密码">
-                <el-input type="password"  auto-complete="off" placeholder="再次输入密码"></el-input>
+            <el-form-item prop="regCheckPassword" label="确认密码">
+                <el-input type="password"  auto-complete="off" placeholder="再次输入密码" v-model="ruleForm2.regCheckPassword"></el-input>
             </el-form-item>
             <!-- <el-checkbox v-model="checked" class="rememberme">记住密码</el-checkbox> --->
             <br/>
@@ -52,7 +52,7 @@
                 <el-button style="width:40%">验证码</el-button>
             </el-form-item>
             <el-form-item style="width:100%;">
-                <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="resgistering">注册</el-button>
+                <el-button :plain="true" type="primary" style="width:100%;" @click="registerHandler();handleSubmit()">注册</el-button>
             </el-form-item>
         </el-form>
         <div class="footer">
@@ -65,6 +65,9 @@
 
     import Upload from '../upload/Upload'
 
+    import axios from 'axios'
+    import url from '@/service.config.js'
+
     export default {
         components:{
             Upload
@@ -73,39 +76,56 @@
             return {
                 resgistering: false,
                 ruleForm2: {
-                    username: "admin",
-                    password: "123456"
+                    regUsername: '',
+                    regPassword: '',
+                    regCheckPassword:''
                 },
                 rules2: {
-                    username: [
+                    regUsername: [
                         {
                             required: true,
                             message: "please enter your account",
                             trigger: "blur"
                         }
                     ],
-                    password: [
+                    regPassword: [
                         { required: true, message: "enter your password", trigger: "blur" }
-                    ]
+                    ],
+                    regCheckPassword:[
+                        {
+                            required: true,
+                            message: "enter your password",
+                            trigger: "blur",
+                        }
+
+                        ]
                 },
                 checked: false
             };
         },
         methods: {
+            //注册成功信息
+            open2() {
+                this.$message({
+                    message: '注册成功！',
+                    type: 'success'
+                });
+            },
+            //注册失败信息
+            open4() {
+                this.$message.error('注册失败！');
+            },
             handleSubmit(event) {
+                console.log(11111);
                 this.$refs.ruleForm2.validate(valid => {
                     if (valid) {
                         this.resgistering = true;
                         if (
-                            this.ruleForm2.username === "admin" &&
-                            this.ruleForm2.password === "123456"
+                            this.ruleForm2.regPassword !==
+                            this.ruleForm2.regCheckPassword
                         ) {
                             this.resgistering = false;
-                            sessionStorage.setItem("user", this.ruleForm2.username);
-                            this.$router.push({ path: "/" });
-                        } else {
-                            this.resgistering = false;
-                            this.$alert("username or password wrong!", "info", {
+                            this.$alert("Password and Confirm Password inconsistent!", "info", {
                                 confirmButtonText: "ok"
                             });
                         }
@@ -114,6 +134,30 @@
                         return false;
                     }
                 });
+                //待删
+                this.ruleForm2.regUsername = this.ruleForm2.regPassword = this.ruleForm2.regCheckPassword = '';
+            },
+            //注册处理方法
+            registerHandler(){
+                axios({
+                    url:url.registUser,        //url后端地址 service.config.js 中的后端接口
+                    methods:'post',
+                    data:{
+                        userName:this.ruleForm2.regUsername,   //名称与模型名称对应
+                        password:this.ruleForm2.regPassword
+                    }
+                }).then(res=>{
+                    if(res.data.code === 200){
+                        open2();
+                        this.ruleForm2.regUsername = this.ruleForm2.regPassword = '';   //提交表单后清空表单信息
+                    }else{
+                        this.$message.error('注册失败！');
+                    }
+                    console.log(res);        //请求成功
+                }).catch(err => {
+                    this.$message.error('注册失败！');
+                    console.log(err);        //请求失败
+                })
             }
         }
     };

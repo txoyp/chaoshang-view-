@@ -100,7 +100,7 @@
         -webkit-border-radius: 5px;
         border-radius: 5px;
         margin: 100px auto;
-        width: 36%;
+        width: 40%;
         padding: 35px 35px 15px;
         background: #fff;
         border: 1px solid #eaeaea;
